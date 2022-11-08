@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "companies",
-    "fibonacci",
 ]
 
 MIDDLEWARE = [
@@ -70,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "coronavstech"
+WSGI_APPLICATION = "coronavstech.wsgi.application"
 
 
 # Database
