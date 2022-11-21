@@ -7,4 +7,4 @@ from conftest import track_performance
 @pytest.mark.performance
 @track_performance
 def test_performance():
-    fibonacci_dynamic_v2(1000)
+    fibonacci_dynamic_v2(100)
