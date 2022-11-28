@@ -1,4 +1,6 @@
 import json
+from typing import List
+
 import pytest
 from django.urls import reverse
 from companies.models import Company
@@ -12,11 +14,6 @@ def test_zero_companies_should_return_empty_list(client) -> None:
     response = client.get(companies_url)
     assert response.status_code == 200
     assert json.loads(response.content) == []
-
-
-@pytest.fixture
-def amazon() -> Company:
-    return Company.objects.create(name="amazon")
 
 
 def test_one_company_exists_should_succeed(client, amazon) -> None:
@@ -119,23 +116,15 @@ def test_logged_info_level(caplog) -> None:
     assert "I am logging info level" in caplog.text
 
 
-# ------------Learn about fixture test--------------------
-
-
-@pytest.fixture()
-def company(**kwargs):
-    def _company_factory(**kwargs) -> Company:
-        company_name = kwargs.pop("name", "Test Company INC")
-        return Company.objects.create(name=company_name, **kwargs)
-
-    return _company_factory
-
-
-def test_multiple_companies_exist_should_success(client, company) -> None:
-    tiktok: Company = company(name="Tiktok")
-    twitch: Company = company(name="Twitch")
-    test_company: Company = company()
-    company_names = {tiktok.name, twitch.name, test_company.name}
+@pytest.mark.parametrize(
+    "companies",
+    [["Tiktok", "Twitch", "Test Company INC"], ["Facebook", "Instagram"]],
+    ids=["3 T Companies", "Zuckerberg`s companies"],
+    indirect=True,
+)
+def test_multiple_companies_exist_should_success(client, companies) -> None:
+    company_names = set(map(lambda x: x.name, companies))
+    print(company_names)
     response_companies = client.get(companies_url).json()
     assert len(company_names) == len(response_companies)
     response_companies_names = set(

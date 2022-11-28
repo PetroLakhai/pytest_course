@@ -2,7 +2,6 @@ from fibonacci.cached import fibonacci_cached, fibonacci_lru_cached
 from fibonacci.dynamic import fibonacci_dynamic, fibonacci_dynamic_v2
 from fibonacci.naive import fibonacci_naive
 from typing import Callable
-from conftest import time_tracker
 import pytest
 
 # from my_decorator import my_parametrized
