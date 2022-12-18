@@ -36,7 +36,3 @@ def track_performance(method: Callable, runtime_limit=timedelta(seconds=2)):
         return result
 
     return run_function_and_variable_runtime
-
-
-
-
