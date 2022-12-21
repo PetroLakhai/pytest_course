@@ -32,6 +32,7 @@ def cleanup_company(company_id: str) -> None:
 
 
 @pytest.mark.exchange_rate
+@pytest.mark.skip(reason="This test needs not free version of the site presented in url.")
 def test_min_fin_api() -> None:
     url = "https://api.minfin.com.ua/mb/72e37eb216279d8bacac77132ea2b183ccbe1c86/"
     response = requests.get(url=url)
